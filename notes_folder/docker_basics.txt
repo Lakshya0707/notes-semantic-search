@@ -1,0 +1,7 @@
+Docker ek tool hai jisse application ko ek isolated environment (container) mein chalaya jata hai. Container ek chota package hota hai jisme application ka code, libraries, aur dependencies sab kuch rehta hai, taaki wo kisi bhi machine pe same tarah se chale.
+
+Dockerfile ek text file hoti hai jisme likha hota hai container kaise banega - konsa base image use hoga, konsi libraries install hongi, code kahan copy hoga.
+
+Docker image ek template hoti hai, container us image ka running version hota hai. Docker Hub ek jagah hai jahan se ready-made images download kar sakte hain, jaise Python ya MySQL ki official image.
+
+Docker Compose multiple containers ko ek saath chalane ke liye use hota hai, jaise ek app container aur ek database container same time pe.

@@ -1,0 +1,7 @@
+SQL mein JOIN ka use hota hai do ya zyada tables ka data ek saath combine karne ke liye, jab data alag alag tables mein spread hota hai lekin unka aapas mein relation hota hai.
+
+INNER JOIN sirf wahi rows deta hai jo dono tables mein match karti hain. LEFT JOIN pehli table ki saari rows deta hai, chahe doosri table mein match ho ya na ho. RIGHT JOIN isi tarah doosri table ki saari rows deta hai.
+
+FULL OUTER JOIN dono tables ki saari rows deta hai, match ho ya na ho. JOIN karne ke liye usually ek common column use hota hai, jaise customer_id jo dono tables mein ho.
+
+Primary key ek table mein unique identifier hoti hai. Foreign key doosri table ke primary key ko refer karti hai, isi se relation banta hai tables ke beech.

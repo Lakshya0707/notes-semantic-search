@@ -1,0 +1,5 @@
+Python mein loops ka use kisi kaam ko baar baar karne ke liye hota hai. For loop tab use hota hai jab humein pata ho ki kitni baar repeat karna hai, jaise ek list ke har item pe jaana. While loop tab use hota hai jab repeat karna hai jab tak ek condition true rahe.
+
+For loop ka example: list ke andar har element ko print karna. While loop ka example: user se input lena jab tak wo "exit" na likhe.
+
+Break statement loop ko turant rok deta hai. Continue statement current iteration ko skip karke next iteration pe chala jata hai. Nested loops ek loop ke andar doosra loop hota hai, jaise 2D grid ya matrix ke saath kaam karte waqt.

@@ -218,3 +218,29 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+vecdb/
+project_structure.txt
+# Python standard stuff
+__pycache__/
+*.pyc
+*.pyo
+venv/
+env/
+.venv/
+*.egg-info/
+
+# ChromaDB ka local storage (ye bohot zaroori hai!)
+chroma_db/
+*.sqlite3
+*.sqlite
+
+# Agar .env file use kar rahe ho (API keys wagera ke liye)
+.env
+
+# IDE/editor specific
+.vscode/
+.idea/
+
+# OS specific
+.DS_Store
+Thumbs.db

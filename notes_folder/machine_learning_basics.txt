@@ -1,0 +1,5 @@
+Machine learning ek tarika hai jisse computer data se khud seekhta hai, bina sabhi rules manually likhe. Supervised learning mein model ko labeled data diya jata hai, jaise input aur uska sahi output, taaki model pattern seekh sake.
+
+Unsupervised learning mein labels nahi hote, model khud data mein patterns ya groups dhundhta hai, jaise clustering. Classification task mein output ek category hoti hai, jaise spam ya not-spam. Regression task mein output ek number hota hai, jaise ghar ki price predict karna.
+
+Training data wo data hota hai jisse model seekhta hai. Testing data wo data hota hai jisse model ki accuracy check karte hain, jo training mein use nahi hua hota. Overfitting tab hota hai jab model training data ko bohot zyada ratt leta hai lekin naye data pe accha perform nahi karta.
