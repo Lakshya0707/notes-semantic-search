@@ -84,5 +84,96 @@ model = SentenceTransformer("all-MiniLM-L6-v2")
 embeddings = model.encode(all_chunks).tolist()
 # ab documents ki jagah all_chunks ka embedding banaya - ye important change hai
 
-print(f"Total {len(embeddings)} embeddings bane")
-print(f"Har embedding ki length: {len(embeddings[0])}")
+# print(f"Total {len(embeddings)} embeddings bane")
+# print(f"Har embedding ki length: {len(embeddings[0])}")
+
+import chromadb
+# ChromaDB import kiya - ye hamara vector database hai
+
+client = chromadb.Client()
+# ek in-memory ChromaDB client banaya
+# (program band hote hi data gayab ho jayega - abhi practice ke liye theek hai)
+
+collection = client.create_collection(name="my_notes")
+# ek "collection" banaya - socho ye ek table/box hai jisme hum data rakhenge
+
+ids = [str(i) for i in range(len(all_chunks))]
+# har chunk ko ek unique ID di, jaise "0", "1", "2"...
+# ChromaDB ko har entry ke liye ek ID chahiye hoti hai, string format mein
+
+metadatas = [{"source": source} for source in chunk_sources]
+# har chunk ke liye ek metadata dictionary banayi
+# isme bas itna hai ki ye chunk kis file se aaya
+# baad mein search result ke saath ye bhi dikha payenge "ye kis note se mila"
+
+collection.add(
+    ids=ids,                  # unique IDs
+    documents=all_chunks,     # asli text (chunks)
+    embeddings=embeddings,    # Step 4 mein bane vectors
+    metadatas=metadatas       # extra info (source filename)
+)
+# sab kuch ek saath ChromaDB mein daal diya
+
+# print(f"{len(all_chunks)} chunks ChromaDB mein store ho gaye")
+
+def search_notes(query, n_results=3):
+    # user ka sawaal (query) leta hai aur top matching chunks dhundta hai
+    
+    query_embedding = model.encode([query]).tolist()
+    # query ko bhi usi model se vector mein convert kiya
+    # [query] isliye list mein, kyuki encode() ek list expect karta hai
+    
+    results = collection.query(
+        query_embeddings=query_embedding,
+        n_results=n_results
+        # kitne top results chahiye (default 3)
+    )
+    
+    return results
+    # ChromaDB se mile results wapas bhej diye
+
+
+def print_results(results):
+    # results ko achhe se, readable format mein print karta hai
+    
+    documents = results["documents"][0]
+    # matching chunks ka text
+    
+    metadatas = results["metadatas"][0]
+    # un chunks ka source (filename)
+    
+    distances = results["distances"][0]
+    # kitna "door/paas" hai query se (kam distance = zyada relevant)
+    
+    for i in range(len(documents)):
+        print(f"\n--- Result {i+1} ---")
+        print(f"Source: {metadatas[i]['source']}")
+        print(f"Distance: {distances[i]:.4f}")
+        print(f"Text: {documents[i]}")
+
+
+print("\n=== Semantic Search ready hai! ===")
+print("Query likho (exit likhne se band ho jayega)\n")
+
+while True:
+    # infinite loop - jab tak user "exit" na likhe
+    
+    query = input("Tumhara sawaal: ")
+    # user se input lena
+    
+    if query.lower() == "exit":
+        # agar user "exit" ya "Exit" ya "EXIT" kuch bhi likhe, chhota-bada sab chalega
+        print("Bye bhai!")
+        break
+        # loop se bahar nikal jao, program band ho jayega
+    
+    if query.strip() == "":
+        # agar user khali Enter daba de, kuch na likhe
+        print("Kuch toh likho bhai!")
+        continue
+        # loop ke start pe wapas chala jao, neeche ka code skip karke
+    
+    results = search_notes(query)
+    print_results(results)
+    print("\n" + "-"*50 + "\n")
+    # ek separator line dikhayi, taaki results alag-alag dikhein
